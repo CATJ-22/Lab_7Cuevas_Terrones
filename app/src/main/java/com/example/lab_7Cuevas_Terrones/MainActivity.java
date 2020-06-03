@@ -34,6 +34,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.InicializarControles();
         this.AttachEventSpn();
+        try{
+            Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+            SQLiteDatabase db = usuariosDb.getWritableDatabase();
+
+            if (db != null) {
+                ContentValues values = new ContentValues();
+                values.put("usuario", "Juan");
+                values.put("cedula", "9-999-9999");
+                values.put("correo", "elseniordelastinieblas@hagosufrirestudiantes.com");
+                values.put("tipo", "Administrador");
+                values.put("contra", "123");
+                db.insert("usuarios", null, values);
+                Toast.makeText(getApplicationContext(), "En teoria, todo se inserto bien", Toast.LENGTH_SHORT).show();
+
+            }
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Errorcito: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -87,26 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Button Login
     public void onClick(View view){
-
-        try{
-            Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
-            SQLiteDatabase db = usuariosDb.getWritableDatabase();
-
-            if (db == null){
-                ContentValues values = new ContentValues();
-                values.put("usuario", "Juan");
-                values.put("cedula","9-999-9999");
-                values.put("correo","elseniordelastinieblas@hagosufrirestudiantes.com");
-                values.put("tipo","Administrador");
-                values.put("contra", "123");
-                db.insert("usuario",null,values);
-                Toast.makeText(getApplicationContext(),"En teoria, todo se inserto bien",Toast.LENGTH_SHORT).show();
-            }
-
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(),"Errorcito: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
-        }
-
         if(TextUtils.isEmpty(user.getText().toString()))
             user.setError("Introduzca su Correo Electronico");
         if(TextUtils.isEmpty(pass.getText().toString()))
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Llegue al if de C", Toast.LENGTH_SHORT).show();
                     tp_user = c.getString(1);
                     Toast.makeText(getApplicationContext(), "Llegue hasta leer bd", Toast.LENGTH_SHORT).show();
-                    if (c.getString(0).compareToIgnoreCase(correo) == 0 && c.getString(2).equals(password)) {
+                    if (c.getString(0).equals(correo)  && c.getString(2).equals(password)) {
                         Toast.makeText(getApplicationContext(), "COMPARE BIEN", Toast.LENGTH_SHORT).show();
                         if (sp_user.getSelectedItem().toString().equals(tp_user)) {
                             Intent i = new Intent(this, WelcomeActivity.class);
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                } while (c.moveToNext() && c.getString(2) != correo && c.getString(4) != password);
+                } while (c.moveToNext());
                 Toast.makeText(getApplicationContext(), "Me sali sin hacer nada", Toast.LENGTH_SHORT).show();
             }}
 
