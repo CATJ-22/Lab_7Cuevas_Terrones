@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lab_6Arango_Terrones</string>
+    <string-array name="spn_opciones">
+        <item>Administrador</item>
+        <item>Usuario Normal</item>
+        <item>Registrador</item>
+        <item>Especial</item>
+    </string-array>
+</resources>
