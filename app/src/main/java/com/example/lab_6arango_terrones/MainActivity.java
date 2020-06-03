@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView prueba, prueba1;
     EditText user, pass;
     Spinner sp_user;
-
+//Cuevitas estuvo aqui.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
