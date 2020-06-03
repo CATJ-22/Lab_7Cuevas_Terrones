@@ -131,13 +131,3 @@ try{
     }
 }
 
-//Switch del Button
-/*switch (view.getId()){
-            case R.id.btnlog:
-                GuardarPref();
-                break;
-            case R.id.btnu:
-                Intent i = new Intent(this, WelcomeActivity.class);
-                startActivity(i);
-        }*/
-
