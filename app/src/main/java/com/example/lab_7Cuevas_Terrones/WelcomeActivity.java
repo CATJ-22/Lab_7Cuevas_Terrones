@@ -1,4 +1,4 @@
-package com.example.lab_6arango_terrones;
+package com.example.lab_7Cuevas_Terrones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,34 +9,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class Welcome2Activity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
     TextView name, id, mail, user_id;
-    String nom, ced, correo, usertp, spn;
-
+    String nom, ced, correo, usertp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome2);
+        setContentView(R.layout.activity_welcome);
         this.InicializarControles();
     }
 
     public void InicializarControles(){
-        name = (TextView)findViewById(R.id.txtnom1);
-        id = (TextView)findViewById(R.id.txtced1);
-        mail = (TextView)findViewById(R.id.txtcorreo1);
-        user_id = (TextView)findViewById(R.id.txtusertp1);
+        name = (TextView)findViewById(R.id.txtnom);
+        id = (TextView)findViewById(R.id.txtced);
+        mail = (TextView)findViewById(R.id.txtcorreo);
+        user_id = (TextView)findViewById(R.id.txtusertp);
         this.CargarPref();
     }
 
     public void CargarPref(){
-        Intent j = getIntent();
-        spn = j.getStringExtra("tipo");
-
-        SharedPreferences admin = getSharedPreferences(spn, Context.MODE_PRIVATE);
+        SharedPreferences admin = getSharedPreferences("Administrador", Context.MODE_PRIVATE);
         nom = admin.getString("nombre", "Juan Zamora");
         ced = admin.getString("ced", "8-405-988");
         correo = admin.getString("correo", "zamora@mail.com");
-        usertp = admin.getString("tipo", "No asignado");
+        usertp = admin.getString("tipo", "Administrador");
 
         name.setText(nom);
         id.setText(ced);
@@ -49,8 +45,9 @@ public class Welcome2Activity extends AppCompatActivity {
         startActivity(r);
     }
 
+
     public void Salir(View view){
-        Intent o = new Intent(this, MainActivity.class);
-        startActivity(o);
+        Intent s = new Intent(this, MainActivity.class);
+        startActivity(s);
     }
 }
