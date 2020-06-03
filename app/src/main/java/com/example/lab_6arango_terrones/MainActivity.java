@@ -2,9 +2,11 @@ package com.example.lab_6arango_terrones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,9 +30,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.InicializarControles();
         this.AttachEventSpn();
+try{
+
+    Lab7SQLiteHelper peliculasDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+    SQLiteDatabase db = peliculasDb.getWritableDatabase();
+
+    if (db != null){
+        ContentValues values = new ContentValues();
 
 
+        db.insert("pelicula",null,values);
+        Toast.makeText(getApplicationContext(),"En teoria, todo se inserto bien",Toast.LENGTH_SHORT).show();
+    }
 
+}catch (Exception e){
+    Toast.makeText(getApplicationContext(),"Errorcito: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+}
+    }
 
 
     }
