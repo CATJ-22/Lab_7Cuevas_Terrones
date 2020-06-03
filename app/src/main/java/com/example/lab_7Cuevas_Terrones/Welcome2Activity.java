@@ -1,4 +1,4 @@
-package com.example.lab_6arango_terrones;
+package com.example.lab_7Cuevas_Terrones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,35 +6,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class Welcome2Activity extends AppCompatActivity {
     TextView name, id, mail, user_id;
-    String nom, ced, correo, usertp;
+    String nom, ced, correo, usertp, spn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_welcome2);
         this.InicializarControles();
     }
 
     public void InicializarControles(){
-        name = (TextView)findViewById(R.id.txtnom);
-        id = (TextView)findViewById(R.id.txtced);
-        mail = (TextView)findViewById(R.id.txtcorreo);
-        user_id = (TextView)findViewById(R.id.txtusertp);
+        name = (TextView)findViewById(R.id.txtnom1);
+        id = (TextView)findViewById(R.id.txtced1);
+        mail = (TextView)findViewById(R.id.txtcorreo1);
+        user_id = (TextView)findViewById(R.id.txtusertp1);
         this.CargarPref();
     }
 
     public void CargarPref(){
-        SharedPreferences admin = getSharedPreferences("Administrador", Context.MODE_PRIVATE);
+        Intent j = getIntent();
+        spn = j.getStringExtra("tipo");
+
+        SharedPreferences admin = getSharedPreferences(spn, Context.MODE_PRIVATE);
         nom = admin.getString("nombre", "Juan Zamora");
         ced = admin.getString("ced", "8-405-988");
         correo = admin.getString("correo", "zamora@mail.com");
-        usertp = admin.getString("tipo", "Administrador");
+        usertp = admin.getString("tipo", "No asignado");
 
         name.setText(nom);
         id.setText(ced);
@@ -47,9 +49,8 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(r);
     }
 
-
     public void Salir(View view){
-        Intent s = new Intent(this, MainActivity.class);
-        startActivity(s);
+        Intent o = new Intent(this, MainActivity.class);
+        startActivity(o);
     }
 }

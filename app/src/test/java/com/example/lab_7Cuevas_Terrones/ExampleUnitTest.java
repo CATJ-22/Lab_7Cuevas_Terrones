@@ -1,4 +1,4 @@
-package com.example.lab_6arango_terrones;
+package com.example.lab_7Cuevas_Terrones;
 
 import org.junit.Test;
 

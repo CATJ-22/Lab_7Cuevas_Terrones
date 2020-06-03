@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lab_6arango_terrones">
+    package="com.example.lab_7Cuevas_Terrones">
 
     <application
         android:allowBackup="true"
@@ -9,12 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeEActivity"></activity>
-        <activity android:name=".Registro2Activity" />
-        <activity android:name=".Welcome2Activity" />
-        <activity android:name=".RegistroActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.lab_7Cuevas_Terrones.WelcomeEActivity"></activity>
+        <activity android:name="com.example.lab_7Cuevas_Terrones.Welcome2Activity" />
+        <activity android:name="com.example.lab_7Cuevas_Terrones.RegistroActivity" />
+        <activity android:name="com.example.lab_7Cuevas_Terrones.WelcomeActivity" />
+        <activity android:name="com.example.lab_7Cuevas_Terrones.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

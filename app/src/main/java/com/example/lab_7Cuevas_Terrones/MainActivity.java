@@ -1,4 +1,4 @@
-package com.example.lab_6arango_terrones;
+package com.example.lab_7Cuevas_Terrones;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,8 +54,6 @@ try{
 
 
     public void InicializarControles(){
-        prueba = (TextView)findViewById(R.id.pruebash);
-        prueba1 = (TextView)findViewById(R.id.pruebashp);
         user = (EditText)findViewById(R.id.txtemail);
         pass = (EditText)findViewById(R.id.txtpw);
         sp_user = (Spinner)findViewById(R.id.spn_usuario);
