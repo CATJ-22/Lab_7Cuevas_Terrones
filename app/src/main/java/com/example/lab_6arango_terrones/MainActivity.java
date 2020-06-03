@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.InicializarControles();
         this.AttachEventSpn();
+
+
+
+
+
     }
 
     public void InicializarControles(){
