@@ -87,27 +87,16 @@ try{
     }
     //SPINNER
 
-    public void CargarPref(){
-        /*tp_user = ;*/
-        SharedPreferences admin = getSharedPreferences(sp_user.getSelectedItem().toString(), Context.MODE_PRIVATE);
-        /*else if ()
-            Sharep*/
-        correo = admin.getString("correo", "zamora@mail.com");
-        password = admin.getString("contra","Elinnombrable");
-
-        prueba.setText(correo);
-        prueba1.setText(password);
-    }
-
     //Button Login
     public void onClick(View view){
-        this.CargarPref();
         //VALIDATIONS AND LOGIN
+        int a=0;
         if(TextUtils.isEmpty(user.getText().toString()))
             user.setError("Introduzca su Correo Electronico");
-        if(TextUtils.isEmpty(pass.getText().toString()))
+        if(TextUtils.isEmpty(pass.getText().toString())){
             pass.setError("Introduzca la Contraseña");
-        else{
+            a=1;}
+        if(a==1){
             if(user.getText().toString().compareToIgnoreCase(correo)==0 && pass.getText().toString().equals(password)){
                 if(sp_user.getSelectedItem().toString().equals("Administrador")){
                     Intent i = new Intent(this, WelcomeActivity.class);
@@ -117,7 +106,6 @@ try{
                     startActivity(e);
                 }else{
                     Intent j = new Intent(this, Welcome2Activity.class);
-                    j.putExtra("tipo",sp_user.getSelectedItem().toString());
                     startActivity(j);
 
                 }
