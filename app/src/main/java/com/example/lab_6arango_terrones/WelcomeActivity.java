@@ -47,10 +47,6 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(r);
     }
 
-    public void RegistrarEspecial(View view){
-        Intent re = new Intent(this, Registro2Activity.class);
-        startActivity(re);
-    }
 
     public void Salir(View view){
         Intent s = new Intent(this, MainActivity.class);

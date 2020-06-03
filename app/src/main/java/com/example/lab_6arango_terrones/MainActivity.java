@@ -32,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
         this.AttachEventSpn();
 try{
 
-    Lab7SQLiteHelper peliculasDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
-    SQLiteDatabase db = peliculasDb.getWritableDatabase();
+    Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+    SQLiteDatabase db = usuariosDb.getWritableDatabase();
 
     if (db != null){
         ContentValues values = new ContentValues();
-
-
-        db.insert("pelicula",null,values);
+        values.put("usuario", "Juan");
+        values.put("cedula","9-999-9999");
+        values.put("correo","elseniordelastinieblas@hagosufrirestudiantes.com");
+        values.put("tipo","Administrador");
+        values.put("contra", "123");
+        db.insert("usuario",null,values);
         Toast.makeText(getApplicationContext(),"En teoria, todo se inserto bien",Toast.LENGTH_SHORT).show();
     }
 
@@ -49,7 +52,7 @@ try{
     }
 
 
-    }
+
 
     public void InicializarControles(){
         prueba = (TextView)findViewById(R.id.pruebash);
