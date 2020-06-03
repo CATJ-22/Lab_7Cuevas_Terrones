@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     String correo, password, tp_user;
@@ -30,33 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.InicializarControles();
         this.AttachEventSpn();
-try{
-
-    Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
-    SQLiteDatabase db = usuariosDb.getWritableDatabase();
-
-    if (db != null){
-        ContentValues values = new ContentValues();
-        values.put("usuario", "Juan");
-        values.put("cedula","9-999-9999");
-        values.put("correo","elseniordelastinieblas@hagosufrirestudiantes.com");
-        values.put("tipo","Administrador");
-        values.put("contra", "123");
-        db.insert("usuario",null,values);
-        Toast.makeText(getApplicationContext(),"En teoria, todo se inserto bien",Toast.LENGTH_SHORT).show();
-    }
-
-}catch (Exception e){
-    Toast.makeText(getApplicationContext(),"Errorcito: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
-}
     }
 
 
 
 
     public void InicializarControles(){
-        prueba = (TextView)findViewById(R.id.pruebash);
-        prueba1 = (TextView)findViewById(R.id.pruebashp);
         user = (EditText)findViewById(R.id.txtemail);
         pass = (EditText)findViewById(R.id.txtpw);
         sp_user = (Spinner)findViewById(R.id.spn_usuario);
@@ -104,30 +87,65 @@ try{
 
     //Button Login
     public void onClick(View view){
-        this.CargarPref();
-        //VALIDATIONS AND LOGIN
+
+        try{
+            Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+            SQLiteDatabase db = usuariosDb.getWritableDatabase();
+
+            if (db == null){
+                ContentValues values = new ContentValues();
+                values.put("usuario", "Juan");
+                values.put("cedula","9-999-9999");
+                values.put("correo","elseniordelastinieblas@hagosufrirestudiantes.com");
+                values.put("tipo","Administrador");
+                values.put("contra", "123");
+                db.insert("usuario",null,values);
+                Toast.makeText(getApplicationContext(),"En teoria, todo se inserto bien",Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Errorcito: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+        }
+
         if(TextUtils.isEmpty(user.getText().toString()))
             user.setError("Introduzca su Correo Electronico");
         if(TextUtils.isEmpty(pass.getText().toString()))
             pass.setError("Introduzca la Contraseña");
         else{
-            if(user.getText().toString().compareToIgnoreCase(correo)==0 && pass.getText().toString().equals(password)){
-                if(sp_user.getSelectedItem().toString().equals("Administrador")){
-                    Intent i = new Intent(this, WelcomeActivity.class);
-                    startActivity(i);
-                }else if(sp_user.getSelectedItem().toString().equals("Especial")){
-                    Intent e = new Intent(this, WelcomeEActivity.class);
-                    startActivity(e);
-                }else{
-                    Intent j = new Intent(this, Welcome2Activity.class);
-                    j.putExtra("tipo",sp_user.getSelectedItem().toString());
-                    startActivity(j);
+        correo=user.toString();
+        password=pass.toString();
+            Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+        Toast.makeText(getApplicationContext(), "abro la clase bd", Toast.LENGTH_SHORT).show();
+            SQLiteDatabase db = usuariosDb.getReadableDatabase();
+            Toast.makeText(getApplicationContext(), "creo la sqlitedb", Toast.LENGTH_SHORT).show();
+        String[] campos = new String[] {"correo","tipo", "contra"};
+            Toast.makeText(getApplicationContext(), "Llegue a crear el arreglo", Toast.LENGTH_SHORT).show();
+        Cursor c = db.query("usuarios",campos,null,null,null,null,null);
+            Toast.makeText(getApplicationContext(), "Llegue a crear el cursor", Toast.LENGTH_SHORT).show();
+            if (c.moveToFirst()) {
+                do {
+                    Toast.makeText(getApplicationContext(), "Llegue al if de C", Toast.LENGTH_SHORT).show();
+                    tp_user = c.getString(1);
+                    Toast.makeText(getApplicationContext(), "Llegue hasta leer bd", Toast.LENGTH_SHORT).show();
+                    if (c.getString(0).compareToIgnoreCase(correo) == 0 && c.getString(2).equals(password)) {
+                        Toast.makeText(getApplicationContext(), "COMPARE BIEN", Toast.LENGTH_SHORT).show();
+                        if (sp_user.getSelectedItem().toString().equals(tp_user)) {
+                            Intent i = new Intent(this, WelcomeActivity.class);
+                            startActivity(i);
+                        } else if (sp_user.getSelectedItem().toString().equals(tp_user)) {
+                            Intent e = new Intent(this, WelcomeEActivity.class);
+                            startActivity(e);
+                        } else {
+                            Intent j = new Intent(this, Welcome2Activity.class);
+                            j.putExtra("tipo", sp_user.getSelectedItem().toString());
+                            startActivity(j);
+                        }
 
-                }
-            }else
-                Toast.makeText(this,"Email or Password incorrect.", Toast.LENGTH_LONG).show();
-        }
-        //VALIDATIONS AND LOGIN
+                    }
+                } while (c.moveToNext() && c.getString(2) != correo && c.getString(4) != password);
+                Toast.makeText(getApplicationContext(), "Me sali sin hacer nada", Toast.LENGTH_SHORT).show();
+            }}
+
     }
 }
 
