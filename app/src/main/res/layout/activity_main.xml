@@ -37,18 +37,6 @@
             android:maxEms="17"
             android:inputType="textPassword" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo de Usuario:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-        <Spinner
-            android:id="@+id/spn_usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
 
         <LinearLayout
             android:layout_width="match_parent"
