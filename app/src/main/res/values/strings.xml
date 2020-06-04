@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab_6Arango_Terrones</string>
+    <string name="app_name">Lab_7Cuevas_Terrones</string>
     <string-array name="spn_opciones">
         <item>Administrador</item>
         <item>Usuario Normal</item>
