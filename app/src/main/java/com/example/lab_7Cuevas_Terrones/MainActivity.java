@@ -92,17 +92,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //SPINNER
 
-    public void CargarPref(){
-        /*tp_user = ;*/
-        SharedPreferences admin = getSharedPreferences(sp_user.getSelectedItem().toString(), Context.MODE_PRIVATE);
-        /*else if ()
-            Sharep*/
-        correo = admin.getString("correo", "zamora@mail.com");
-        password = admin.getString("contra","Elinnombrable");
 
-        prueba.setText(correo);
-        prueba1.setText(password);
-    }
 
     //Button Login
     public void onClick(View view){
@@ -139,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                             j.putExtra("id", id);
                             startActivity(j);
                         }
-
+//
                     }
                 } while (c.moveToNext());
             }}
