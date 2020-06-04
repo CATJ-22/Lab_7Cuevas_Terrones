@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent j = new Intent(this, Welcome2Activity.class);
                             startActivity(j);
                         }
-
+//
                     }
                 } while (c.moveToNext());
                 Toast.makeText(getApplicationContext(), "Me sali sin hacer nada", Toast.LENGTH_SHORT).show();
