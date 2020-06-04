@@ -114,38 +114,34 @@ public class MainActivity extends AppCompatActivity {
         correo=user.getText().toString();
         password=pass.getText().toString();
             Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
-        Toast.makeText(getApplicationContext(), "abro la clase bd", Toast.LENGTH_SHORT).show();
             SQLiteDatabase db = usuariosDb.getReadableDatabase();
-            Toast.makeText(getApplicationContext(), "creo la sqlitedb", Toast.LENGTH_SHORT).show();
-        String[] campos = new String[] {"correo","tipo", "contra"};
-            Toast.makeText(getApplicationContext(), "Llegue a crear el arreglo", Toast.LENGTH_SHORT).show();
+        String[] campos = new String[] {"correo","tipo", "contra", "cedula"};
         Cursor c = db.query("usuarios",campos,null,null,null,null,null);
-            Toast.makeText(getApplicationContext(), "Llegue a crear el cursor", Toast.LENGTH_SHORT).show();
             if (c.moveToFirst()) {
                 do {
-                    Toast.makeText(getApplicationContext(), "Llegue al if de C", Toast.LENGTH_SHORT).show();
+
                     String correobd = c.getString(0);
                     tp_user = c.getString(1);
                     String passbd = c.getString(2);
-                    Toast.makeText(getApplicationContext(), "Llegue hasta leer bd", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), correo, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(), password, Toast.LENGTH_SHORT).show();
+                    String id = c.getString(3);
                     if ( correobd.equals(correo) && passbd.equals(password)) {
-                        Toast.makeText(getApplicationContext(), "COMPARE BIEN", Toast.LENGTH_SHORT).show();
+
                         if (tp_user.equals("Administrador")) {
                             Intent i = new Intent(this, WelcomeActivity.class);
+                            i.putExtra("id", id);
                             startActivity(i);
                         } else if (tp_user.equals("Especial")) {
                             Intent e = new Intent(this, WelcomeEActivity.class);
+                            e.putExtra("id", id);
                             startActivity(e);
                         } else {
                             Intent j = new Intent(this, Welcome2Activity.class);
+                            j.putExtra("id", id);
                             startActivity(j);
                         }
 
                     }
                 } while (c.moveToNext());
-                Toast.makeText(getApplicationContext(), "Me sali sin hacer nada", Toast.LENGTH_SHORT).show();
             }}
 
     }
