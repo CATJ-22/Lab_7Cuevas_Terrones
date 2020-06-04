@@ -24,16 +24,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     String correo, password, tp_user;
-    TextView prueba, prueba1;
     EditText user, pass;
-    Spinner sp_user;
 //Cuevitas estuvo aqui.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.InicializarControles();
-        this.AttachEventSpn();
+
         try{
             Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
             SQLiteDatabase db = usuariosDb.getWritableDatabase();
@@ -61,35 +59,12 @@ public class MainActivity extends AppCompatActivity {
     public void InicializarControles(){
         user = (EditText)findViewById(R.id.txtemail);
         pass = (EditText)findViewById(R.id.txtpw);
-        sp_user = (Spinner)findViewById(R.id.spn_usuario);
-        this.LoadSpinner();
+
+
     }
 
     //SPINNER
-    public void AttachEventSpn() {
-        sp_user.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id){
-                String opcion = adapterView.getItemAtPosition(pos).toString();
-                Toast.makeText(getApplicationContext(), opcion, Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView){
-
-            }
-        });
-    }
-
-    public void LoadSpinner(){
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spn_opciones, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        sp_user.setAdapter(adapter);
-    }
     //SPINNER
 
 
