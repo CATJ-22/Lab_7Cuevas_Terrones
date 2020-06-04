@@ -131,11 +131,11 @@ public class MainActivity extends AppCompatActivity {
                             i.putExtra("id", id);
                             startActivity(i);
                         } else if (tp_user.equals("Especial")) {
-                            Intent e = new Intent(this, WelcomeEActivity.class);
+                            Intent e = new Intent(this, Welcome2Activity.class);
                             e.putExtra("id", id);
                             startActivity(e);
                         } else {
-                            Intent j = new Intent(this, Welcome2Activity.class);
+                            Intent j = new Intent(this, WelcomeEActivity.class);
                             j.putExtra("id", id);
                             startActivity(j);
                         }

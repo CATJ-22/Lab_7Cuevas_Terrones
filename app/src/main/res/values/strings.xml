@@ -3,7 +3,6 @@
     <string-array name="spn_opciones">
         <item>Administrador</item>
         <item>Usuario Normal</item>
-        <item>Registrador</item>
         <item>Especial</item>
     </string-array>
 </resources>

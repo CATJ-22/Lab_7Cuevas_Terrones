@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Welcome2Activity extends AppCompatActivity {
     TextView name, id, mail, user_id;
@@ -25,24 +28,36 @@ public class Welcome2Activity extends AppCompatActivity {
         id = (TextView)findViewById(R.id.txtced1);
         mail = (TextView)findViewById(R.id.txtcorreo1);
         user_id = (TextView)findViewById(R.id.txtusertp1);
-        this.CargarPref();
+        this.CargarBD();
     }
 
-    public void CargarPref(){
+    public void CargarBD(){
         Intent j = getIntent();
-        spn = j.getStringExtra("tipo");
+        String idd = j.getStringExtra("id");
+        try {
 
-        SharedPreferences admin = getSharedPreferences(spn, Context.MODE_PRIVATE);
-        nom = admin.getString("nombre", "Juan Zamora");
-        ced = admin.getString("ced", "8-405-988");
-        correo = admin.getString("correo", "zamora@mail.com");
-        usertp = admin.getString("tipo", "No asignado");
+            Lab7SQLiteHelper usuariosDb = new Lab7SQLiteHelper(getApplicationContext(),"usuarios",null,1);
+            SQLiteDatabase db = usuariosDb.getReadableDatabase();
+            String[] campos = new String[] {"usuario","cedula","correo","tipo"};
+            String[] args = new String[]{idd};
 
-        name.setText(nom);
-        id.setText(ced);
-        mail.setText(correo);
-        user_id.setText(usertp);
-    }
+            Cursor c = db.query("usuarios",campos,"cedula=?",args,null,null,null);
+            if (c.moveToFirst()){
+                do {
+                    nom=c.getString(0);
+                    ced=c.getString(1);
+                    correo=c.getString(2);
+                    usertp=c.getString(3);
+                }while(c.moveToNext());
+            }
+            name.setText(nom);
+            id.setText(ced);
+            mail.setText(correo);
+            user_id.setText(usertp);
+        }
+        catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Errorsote: "+e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+        }}
 
     public void Registrar(View view){
         Intent r = new Intent(this, RegistroActivity.class);
